@@ -1,0 +1,70 @@
+import time
+import random
+
+
+def start():
+    print("Welcome to the typing tester! Please type the difficulty you want: easy, medium, or hard.")
+    difficulty = input().lower()
+
+    if difficulty == "easy":
+        wordlist("easy")
+    elif difficulty == "medium":
+        wordlist("medium")
+    elif difficulty == "hard":
+        wordlist("hard")
+    else:
+        print("Please choose correctly!")
+        start() 
+
+
+def wordlist(level):
+    easy_level = ["apple", "ball", "cat", "dog", "eat", "fish"]
+    medium_level = ["admire", "border", "careful", "clever", "comfort", "courage"]
+    hard_level = ["aberration", "ambiguous", "antiquated", "articulate", "assiduous", "cacophony"]
+
+    if level == "easy":
+        words = easy_level
+    elif level == "medium":
+        words = medium_level
+    elif level == "hard":
+        words = hard_level
+    else:
+        print("Error")
+        return
+
+
+    print(f"Starting with {level} words, get ready!")
+    print("You have 15 seconds to type as many words as possible.")
+    print("Let's start!")
+
+    time_limit = 15
+    word_count = 0
+    start_time = time.perf_counter()
+
+    while True:
+        elapsed_time = time.perf_counter() - start_time
+        if elapsed_time >= time_limit:
+            break
+        random_word = random.choice(words)
+        print(random_word)
+
+        user_input = input("Type the word correctly: ")
+
+        if user_input.lower() == random_word.lower(): 
+            word_count += 1
+        else:
+            print("Incorrect! Try again.")
+
+
+    if word_count >= 10:
+        performance = "Great job!"
+    elif 5 <= word_count < 10:
+        performance = "Not bad!"
+    else:
+        performance = "Keep practicing!"
+
+
+    print(f"Time's up! You typed {word_count} words correctly in {time_limit} seconds. {performance}")
+
+
+start()
