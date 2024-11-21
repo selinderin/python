@@ -1,0 +1,69 @@
+import datetime
+
+def very_expensive_fridge():
+    fridge = {}  
+    ice_cubes = 50 
+    print("This Is Very Expensive Fridge!")
+    
+    while True:
+        print("\nMenu:")
+        print("1. Add item to the fridge")
+        print("2. Pick up item from the fridge")
+        print("3. Show fridge contents")
+        print("4. Get ice cubes")
+        print("5. Check time and day")
+        print("6. Exit")
+        
+        choice = input("Choose an option (1-6): ")
+        
+        if choice == '1':
+            item = input("Enter the item to add: ")
+            amount = int(input(f"Enter the amount of {item}: "))
+            if item in fridge:
+                fridge[item] += amount
+            else:
+                fridge[item] = amount
+            print(f"Added {amount} {item} to the fridge.")
+        
+        elif choice == '2':
+            item = input("Enter the item to pick up: ")
+            if item in fridge:
+                amount = int(input(f"Enter the amount of {item} to pick up: "))
+                if fridge[item] >= amount:
+                    fridge[item] -= amount
+                    print(f"You picked up {amount} {item}(s).")
+                    if fridge[item] == 0:
+                        del fridge[item]
+                else:
+                    print(f"Not enough {item} in the fridge! You only have {fridge[item]}.")
+            else:
+                print(f"{item} is not in the fridge!")
+        
+        elif choice == '3':
+            if fridge:
+                print("\nFridge contents:")
+                for item, amount in fridge.items():
+                    print(f"{item}: {amount}")
+            else:
+                print("The fridge is empty!")
+        
+        elif choice == '4':
+            need = int(input("How many ice cubes do you need? "))
+            if need <= ice_cubes:
+                ice_cubes -= need
+                print(f"You got {need} ice cubes. Remained: {ice_cubes}")
+            else:
+                print(f"Not enough ice cubes! Only {ice_cubes} left.")
+        
+        elif choice == '5':
+            now = datetime.datetime.now()
+            print(f"Current time and day: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        
+        elif choice == '6':
+            print("Closing the Very Expensive Fridge!")
+            break
+        
+        else:
+            print("Please choose between (1-6).")
+
+very_expensive_fridge()
